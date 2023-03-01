@@ -30,7 +30,8 @@ const displayAllNews = (data, categoryName) => {
     const allNewsContainer = document.getElementById('all-news-container')
     allNewsContainer.innerHTML = ''
     data.forEach(singleNews => {
-
+        const date = new Date(singleNews.author.published_date)
+        const newDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         allNewsContainer.innerHTML += `
         <div class="card mb-3" >
         <div class="row g-0">
@@ -49,15 +50,15 @@ const displayAllNews = (data, categoryName) => {
                 <img src="${singleNews.author.img}" class="img-fluid rounded-circle" height="40px" width="40" alt="...">
                 </div>
                 <div>
-                  <p class="m-0 p-0">${singleNews.author.name}</p>
-                  <p class="m-0 p-0">${singleNews.author.published_date}</p>
+                  <p class="m-0 p-0">${singleNews.author.name?singleNews.author.name:'Mr. Unknown'}</p>
+                  <p class="m-0 p-0">${newDate}</p>
                 </div>                
               </div>
 
               <div class="d-flex ">
                 <div class="d-flex gap-2 justify-content-center align-items-center">
                     <i class="fa-solid fa-eye "></i>
-                    <p class="m-0 p-0" >${singleNews.total_view}</p>
+                    <p class="m-0 p-0" >${singleNews.total_view?singleNews.total_view:'0'}</p>
                 </div>
               </div>
               
@@ -90,8 +91,12 @@ const loadNewsDetail = news_id => {
 
 }
 const displayNewDetail = detailData => {
-    
-    const modalDetailBody=document.getElementById('modalDetailBody');
+
+    const date = new Date(detailData.author.published_date)
+    const newDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+
+    const modalDetailBody = document.getElementById('modalDetailBody');
 
     modalDetailBody.innerHTML = `
     <div class="card mb-3" >
@@ -101,7 +106,7 @@ const displayNewDetail = detailData => {
       </div>
       <div class="col-md-12">
         <div class="card-body">
-          <h5 class="card-title">${detailData.title}</h5>
+          <h5 class="card-title">${detailData.title} <span class="badge text-bg-info">${detailData.others_info.is_trending ? 'Trending' : ''}</span></h5>
           <p class="card-text">${detailData.details}</p>
           
         </div>
@@ -111,15 +116,15 @@ const displayNewDetail = detailData => {
             <img src="${detailData.author.img}" class="img-fluid rounded-circle" height="40px" width="40" alt="...">
             </div>
             <div>
-              <p class="m-0 p-0">${detailData.author.name}</p>
-              <p class="m-0 p-0">${detailData.author.published_date}</p>
+              <p class="m-0 p-0">${detailData.author.name?detailData.author.name:'Mr. Unknown'}</p>
+              <p class="m-0 p-0">${newDate}</p>
             </div>                
           </div>
 
           <div class="d-flex ">
             <div class="d-flex gap-2 justify-content-center align-items-center">
                 <i class="fa-solid fa-eye "></i>
-                <p class="m-0 p-0" >${detailData.total_view}</p>
+                <p class="m-0 p-0" >${detailData.total_view?detailData.total_view:'0'}</p>
             </div>
           </div>
           
