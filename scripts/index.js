@@ -1,4 +1,5 @@
 
+let trendingNewsLoad=[]
 const loadCategories = () => {
     const URL = 'https://openapi.programming-hero.com/api/news/categories';
     fetch(URL)
@@ -18,11 +19,16 @@ displayCategories = (data) => {
 // category news 
 const loadCategoryNews = (categoryId, categoryName) => {
     const URL = `https://openapi.programming-hero.com/api/news/category/${categoryId}`
+    console.log(URL);
     fetch(URL)
         .then(res => res.json())
         .then(data => displayAllNews(data.data, categoryName))
 }
 const displayAllNews = (data, categoryName) => {
+    
+    if (categoryName!=='Trending News'&&categoryName!=='Todays Peak') {
+        trendingNewsLoad=data;
+    }
     // console.log(data.data.length);
     document.getElementById('category-name-alert').innerText = categoryName;
     document.getElementById('item-found').innerText = data.length;
@@ -30,6 +36,7 @@ const displayAllNews = (data, categoryName) => {
     const allNewsContainer = document.getElementById('all-news-container')
     allNewsContainer.innerHTML = ''
     data.forEach(singleNews => {
+        
         const date = new Date(singleNews.author.published_date)
         const newDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         allNewsContainer.innerHTML += `
@@ -141,4 +148,10 @@ const displayNewDetail = detailData => {
     </div>
   </div>
   `
+}
+
+const trendingFetch=(filterBtn,category)=>{
+    // const isTrending=trendingNewsLoad[0].others_info.is_trending;
+    const trendingNewsData=trendingNewsLoad.filter(trendingNews=>trendingNews.others_info[filterBtn]===true);
+    displayAllNews(trendingNewsData,category)
 }

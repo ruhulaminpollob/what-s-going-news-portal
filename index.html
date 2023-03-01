@@ -12,13 +12,13 @@
   <script src="https://kit.fontawesome.com/adaf10bc0b.js" crossorigin="anonymous"></script>
 </head>
 
-<body style="background-color: #e3dfdf" onload="loadCategories()">
+<body style="background-color: #e3dfdf" onload="loadCategories();loadCategoryNews('08', 'All News')">
   <header class="container-fluid m-0 p-0">
     <!-- nav bar  -->
 
     <nav class="navbar navbar-expand-lg bg-transparent">
       <div class="container">
-        <a class="navbar-brand" href="#"><button class="btn btn-primary rounded-1">What's</button> Going</a>
+        <a class="navbar-brand p-0 pe-1 border border-2 rounded-1 border-danger fw-bold" href="#"><button class="btn btn-danger rounded-0 fw-bold">What's</button> Going</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
           aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -32,9 +32,9 @@
         </div>
       </div>
     </nav>
-    <hr class="container" />
+    <hr class="container"/>
     <!-- news Categories section -->
-    <section class="category-container my-3 container d-flex justify-content-between" id="category-container">
+    <section  class="category-container my-3 container d-flex justify-content-between" id="category-container">
 
     </section>
   </header>
@@ -59,8 +59,8 @@
         </div>
       </div>
       <div>
-        <button class="btn btn-primary">Todays Peak</button>
-        <button class="btn btn-outline-secondary">Trending</button>
+        <button class="btn btn-primary" onclick="trendingFetch('is_todays_pick','Todays Peak')">Todays Peak</button>
+        <button class="btn btn-outline-secondary" onclick="trendingFetch('is_trending','Trending News')">Trending</button>
       </div>
     </section>
     <!-- all news section -->
