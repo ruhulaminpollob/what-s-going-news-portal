@@ -19,7 +19,6 @@ displayCategories = (data) => {
 // category news 
 const loadCategoryNews = (categoryId, categoryName) => {
     const URL = `https://openapi.programming-hero.com/api/news/category/${categoryId}`
-    console.log(URL);
     fetch(URL)
         .then(res => res.json())
         .then(data => displayAllNews(data.data, categoryName))
